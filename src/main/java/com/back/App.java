@@ -20,10 +20,13 @@ public class App {
         while (true) {
             System.out.println("명령) ");
             String cmd = scanner.nextLine();
+            String actionName = cmd.split("\\?", 2)[0];
 
-            switch (cmd) {
+            switch (actionName) {
                 case "등록" -> wiseSayingController.write();
                 case "목록" -> wiseSayingController.list();
+                case "삭제" -> wiseSayingController.delete(cmd);
+                case "수정" -> wiseSayingController.modify(cmd);
                 case "종료" -> {
                     systemController.exit();
                     return;
