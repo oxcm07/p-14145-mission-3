@@ -1,7 +1,8 @@
 package com.back;
 
-import com.back.domain.wiseSaying.controller.WiseSayingController;
 import com.back.domain.system.controller.SystemController;
+import com.back.domain.wiseSaying.controller.WiseSayingController;
+import com.back.global.rq.Rq;
 
 import java.util.Scanner;
 
@@ -18,15 +19,15 @@ public class App {
         WiseSayingController wiseSayingController = AppContext.wiseSayingController;
 
         while (true) {
-            System.out.println("명령) ");
+            System.out.print("명령) ");
             String cmd = scanner.nextLine();
-            String actionName = cmd.split("\\?", 2)[0];
+            Rq rq = new Rq(cmd);
 
-            switch (actionName) {
+            switch (rq.getActionName()) {
                 case "등록" -> wiseSayingController.write();
                 case "목록" -> wiseSayingController.list();
-                case "삭제" -> wiseSayingController.delete(cmd);
-                case "수정" -> wiseSayingController.modify(cmd);
+                case "삭제" -> wiseSayingController.delete(rq);
+                case "수정" -> wiseSayingController.modify(rq);
                 case "종료" -> {
                     systemController.exit();
                     return;
